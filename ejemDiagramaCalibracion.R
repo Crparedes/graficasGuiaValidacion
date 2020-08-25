@@ -9,7 +9,7 @@ LithiumF  <- data.frame(Conc = c(0.0000, 0.4725, 1.2025, 2.4371, 4.8029, 9.6060)
                         Signal = c(0.000, 0.019, 0.046, 0.095, 0.188, 0.364))
 
 LiF <- ggplot(data = LithiumF, aes(x = Conc, y = Signal)) +
-  theme_bw() + geom_point(size = 3, shape = 16)  +
+  theme_bw() + 
   labs(y = 'Absorbancia (UA)', x = expression(paste('Concentración (mg k', g^{-1}, ')'))) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         axis.text.x = element_text(color = "black"),
@@ -17,7 +17,9 @@ LiF <- ggplot(data = LithiumF, aes(x = Conc, y = Signal)) +
   scale_y_continuous(labels = function(x) sprintf("%.2f", x), breaks = seq(0, .37, .07)) +
   scale_x_continuous(limits = c(-1, 3), labels = function(x) sprintf("%.2f", x), breaks = seq(0, 2, .4)) +
   coord_cartesian(xlim = c(0, 2), ylim = c(0, 0.37)) +
-  geom_smooth(method = 'lm', formula = y ~ x, fullrange = TRUE, color = 'black', size = 0.4, level = 0.999) +
+  geom_smooth(method = 'lm', formula = y ~ x, fullrange = TRUE, color = 'black', size = 0.4, 
+              level = 0.999, fill = '#97d7e4', alpha = 0.8) +
+  geom_point(size = 3, shape = 16)  +
   geom_segment(aes(x = -1, y = 0.285, xend = 1.627, yend = 0.285), size = 0.3, linetype = "dashed") +
   geom_segment(aes(x = 1.627, y = -1, xend = 1.627, yend = 0.285), size = 0.3, linetype = "dotted") +
   geom_segment(aes(x = 1.48, y = -1, xend = 1.48, yend = 0.285), size = 0.3, linetype = "dotted")  +
