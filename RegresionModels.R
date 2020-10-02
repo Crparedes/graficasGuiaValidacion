@@ -1,15 +1,24 @@
-#source('functions.R')
-#Media aritmética
-(p1 <- ggplot(data.frame(x = seq(0, 1, 1)), aes(x = x)) + 
-    geom_area(stat = "function", fun = dnorm, args = list(mean = 0.5, sd = 0.17), fill = "#97d7e4", alpha = 0.3, xlim = c(0, 1)) + 
-    geom_function(fun = dnorm, args = list(mean = 0.5, sd = .17)) +
+source('functions.R')
+#Serie de datos
+set.seed(1)
+df <- data.frame(x = 0:4, y = (0:4)*2.5 + rnorm(5, 0, 1.6), ybar1 = 1)
+df$y[1] <- 0
+plot(y ~ x, data = df)
+abline(lm(y~x, data = df))
+
+# OLS
+
+(p1 <- ggplot(df, aes(x = x, y = y)) + geom_point() +
+    #geom_area(stat = "function", fun = dnorm, args = list(mean = 0.5, sd = 0.17), fill = "#97d7e4", alpha = 0.3, xlim = c(0, 1)) + 
+    geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE, color = 'black', size = 0.5) +
     theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                        axis.text.x = element_text(color = "black"),
-                       axis.text.y = element_text(color = "black"), legend.position = "none") +
-    scale_x_continuous(name = NULL, expand = c(0, 0), breaks = NULL) + 
-    scale_y_continuous(name = NULL, expand = c(0, 0), limits = c(0, 2.8), breaks = NULL) +
-    annotate(geom = "segment", x = 0.5, xend = 0.5, y = 0, yend = 2.35) +
-    annotate(geom = "text", x = 0.52, y = 2.48, size = 9, label = bquote(bar(x))))
+                       axis.text.y = element_text(color = "black"), legend.position = "none") 
+    #scale_x_continuous(name = NULL, expand = c(0, 0), breaks = NULL) + 
+    #scale_y_continuous(name = NULL, expand = c(0, 0), limits = c(-1, 12), breaks = NULL) +
+    #annotate(geom = "segment", x = 0.5, xend = 0.5, y = 0, yend = 2.35) +
+    #annotate(geom = "text", x = 0.52, y = 2.48, size = 9, label = bquote(bar(x)))
+    )
 
 #Mediana
 (p2 <- ggplot(data.frame(x = seq(0, 1, 1)), aes(x = x)) + 
