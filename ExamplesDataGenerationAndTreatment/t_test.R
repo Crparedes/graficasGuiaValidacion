@@ -1,18 +1,20 @@
+#Ejemplo 1
 set.seed(27)
 (HgTot <- round(rnorm(8, 470, 30), 0)) #g kg^-1
 mu <- 500
+shapiro.test(HgTot)
+
 t.test(x = HgTot, mu = mu, alternative = 'less')
 
-library(ggplot2)
+#Ejemplo 2
+set.seed(0)
+(Analista1 <- round(rnorm(6, 1.3, 0.1), 2))
+(Analista2 <- round(rnorm(6, 1.5, 0.2), 2))
+shapiro.test(Analista1);shapiro.test(Analista2)
+t.test(x = Analista1, y = Analista2)      
 
-(p5 <- ggplot(data.frame(x = c(0.9, 1.1) * range(c(HgTot, mu))), aes(x = x)) + 
-    theme_bw() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                       axis.text.x = element_text(color = "black"),
-                       axis.text.y = element_text(color = "black"), legend.position = "none") +
-    scale_x_continuous(name = 'Series 1', expand = c(0, 0)) + 
-    scale_y_continuous(name = NULL, expand = expansion(mult = c(0, 0.1), add = c(0, 0)), breaks = NULL) +
-    geom_area(stat = "function", fun = dnorm, args = list(mean = mean(HgTot), sd = sd(HgTot)), 
-              fill = "#97d7e4", alpha = 0.6))
-
-
-      
+#Ejemplo 3
+PM_10_a <- c(12, 23, 8, 19, 33, 50, 26, 21)
+PM_10_b <- c(12, 24, 15, 26, 26, 62, 34, 28)
+t.test(PM_10_a, PM_10_b, alternative = 'less')
+t.test(PM_10_a, PM_10_b, paired = TRUE, alternative = 'less')
